@@ -466,11 +466,11 @@ class MassImprimirGuiasAndreani extends \Magento\Sales\Controller\Adminhtml\Orde
 
 
     /**
-     * @description Genera masivamente las guías en un solo PDF
      * @param $guiasContent
      * @param $ordersIds
+     * @param null $shipment
      */
-    protected function _generarGuiasMasivas($guiasContent,$ordersIds)
+    public function _generarGuiasMasivas($guiasContent,$ordersIds, $shipment = null)
     {
         try
         {
@@ -523,48 +523,61 @@ class MassImprimirGuiasAndreani extends \Magento\Sales\Controller\Adminhtml\Orde
              * que se encarga de generar la guía en HTML. El tercer parámetro
              * fuerza la descarga (D) o fuerza el almacenamiento en el filesystem (F)
              */
-            if($helper->generateHtml2Pdf($pdfName,$html,'F'))
+            if(!$shipment)
             {
-                $filePath 		= $helper->getGuiaPdfPath($pdfName);
-                $andreaniEmailHelper = $this->_andreaniEmailHelper;
+                if($helper->generateHtml2Pdf($pdfName,$html,'F'))
+                {
+                    $filePath 		= $helper->getGuiaPdfPath($pdfName);
+                    $andreaniEmailHelper = $this->_andreaniEmailHelper;
 
-                $senderTransEmail   = $helper->getTransEmails('contact_general');
-                $receiverTransEmail = $helper->getTransEmails('andreani');
+                    $senderTransEmail   = $helper->getTransEmails('contact_general');
+                    $receiverTransEmail = $helper->getTransEmails('andreani');
 
-                $receiverInfo = [
-                    'name'  => $receiverTransEmail['name'],
-                    'email' => $receiverTransEmail['email']
+                    $receiverInfo = [
+                        'name'  => $receiverTransEmail['name'],
+                        'email' => $receiverTransEmail['email']
 
-                ];
+                    ];
 
-                $senderInfo = [
-                    'name'  => $senderTransEmail['name'],
-                    'email' => $senderTransEmail['email'],
-                ];
+                    $senderInfo = [
+                        'name'  => $senderTransEmail['name'],
+                        'email' => $senderTransEmail['email'],
+                    ];
 
-                /**
-                 * Asigna el valores a las variables.
-                 */
-                $emailTemplateVariables                 = [];
-                $emailTemplateVariables['pdfName']      = $pdfName;
-                $emailTemplateVariables['pdfPath']      = $filePath;
+                    /**
+                     * Asigna el valores a las variables.
+                     */
+                    $emailTemplateVariables                 = [];
+                    $emailTemplateVariables['pdfName']      = $pdfName;
+                    $emailTemplateVariables['pdfPath']      = $filePath;
 
-                /**
-                 * Notifica por mail que se creó una guía.
-                 */
+                    /**
+                     * Notifica por mail que se creó una guía.
+                     */
                 $andreaniEmailHelper->notificarGuiaGenerada(
                     $emailTemplateVariables,
                     $senderInfo,
                     $receiverInfo
                 );
-                $this->messageManager->addSuccessMessage(__('La guía se generó correctamente.'));
+                    $this->messageManager->addSuccessMessage(__('La guía se generó correctamente.'));
 
+                    foreach($guiasContent AS $key => $guiaData)
+                    {
+                        $object  = $guiaData->datosguia->GenerarEnviosDeEntregaYRetiroConDatosDeImpresionResult;
+                        unlink($helper->getDirectoryPath('media')."/andreani/".$object->NumeroAndreani.'.png');
+                    }
+                }
+            }
+            else
+            {
+                $helper->generateHtml2Pdf($pdfName,$html,'D');
                 foreach($guiasContent AS $key => $guiaData)
                 {
                     $object  = $guiaData->datosguia->GenerarEnviosDeEntregaYRetiroConDatosDeImpresionResult;
                     unlink($helper->getDirectoryPath('media')."/andreani/".$object->NumeroAndreani.'.png');
                 }
             }
+
         }
         catch (Exception $e)
         {

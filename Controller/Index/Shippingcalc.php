@@ -229,8 +229,10 @@ class Shippingcalc extends \Magento\Catalog\Controller\Product\View
 
                     if($_producto->getCost())
                         $valor = $_producto->getCost() * $product_qty;
-                    else
-                        $valor = $_producto->getPrice() * $product_qty;
+                    else {
+                        $finalPrice = $_producto->getPriceInfo()->getPrice('final_price')->getValue();;
+                        $valor = $finalPrice * $product_qty;
+                    }
 
                     if($valor_alto < $valor){
                         $valor_alto = $valor;
@@ -338,8 +340,10 @@ class Shippingcalc extends \Magento\Catalog\Controller\Product\View
 
                     if($producto_padre->getCost())
                         $valorProducto = $producto_padre->getCost() * $product_qty;
-                    else
-                        $valorProducto = $producto_hijo->getPrice() * $product_qty;
+                    else {
+                        $finalPrice = $producto_hijo->getPriceInfo()->getPrice('final_price')->getValue();
+                        $valorProducto = $finalPrice * $product_qty;
+                    }
 
                     $ws = $this->_webservice;
 
