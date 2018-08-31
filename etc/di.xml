@@ -12,8 +12,8 @@
     <type name="Magento\Customer\Model\ResourceModel\AddressRepository">
         <plugin name="andreani-campos-custom-billing-address-usuario-invitado" type="Ids\Andreani\Plugin\Customer\AddressRepositoryPlugin" sortOrder="100"/>
     </type>
-    <type name="Magento\Customer\Model\ResourceModel\CustomerRepository">
-        <plugin name="andreani-campos-custom-customer-usuario-invitado" type="Ids\Andreani\Plugin\Customer\CustomerRepositoryPlugin" sortOrder="100"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <plugin name="andreani_sales_order_filters" type="Ids\Andreani\Plugin\Adminhtml\Order\CustomFiltersSalesOrderGridCollection" sortOrder="100"/>
     </type>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
