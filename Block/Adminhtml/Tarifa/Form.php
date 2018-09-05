@@ -51,7 +51,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
         $tarifas->getSelect()
             ->join(
-                ['z' =>'mgids_andreani_zona'],
+                ['z' => $tarifas->getTable('ids_andreani_zona')],
                 'main_table.zona_id = z.zona_id',
                 ['nombre_zona'=>'z.nombre']);
 

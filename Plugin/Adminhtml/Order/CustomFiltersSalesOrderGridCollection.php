@@ -34,16 +34,17 @@ class CustomFiltersSalesOrderGridCollection
 
         if ($requestName == 'andreani_sales_order_grid_data_source') {
             if ($result instanceof $this->collection) {
-                $select = $this->collection->getSelect();
+                $collection = $this->collection;
+                $select = $collection->getSelect();
 
                 $select->join(
-                    ["so" => "sales_order"],
+                    ["so" => $collection->getTable("sales_order")],
                     'main_table.entity_id = so.entity_id AND so.status != "complete" AND so.shipping_method IN ("andreaniestandar_estandar","andreaniurgente_urgente","andreanisucursal_sucursal", "freeshipping_freeshipping")',
                     array('shipping_method')
                 );
 
                 $select->joinLeft(
-                    ["ss" => "sales_shipment"],
+                    ["ss" => $collection->getTable("sales_shipment")],
                     'main_table.entity_id = ss.order_id',
                     array('shipping_label')
                 );
