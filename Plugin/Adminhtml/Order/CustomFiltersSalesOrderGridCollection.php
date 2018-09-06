@@ -51,6 +51,8 @@ class CustomFiltersSalesOrderGridCollection
 
                 $select->where('ss.order_id IS NULL');
 
+                $collection->addFilterToMap('entity_id','main_table.entity_id');
+
                 return $this->collection;
             }
         }
