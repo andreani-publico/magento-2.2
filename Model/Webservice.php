@@ -354,7 +354,7 @@ class Webservice extends WsseAuthHeader
         $helper     = $this->_andreaniHelper;
         $response   = [];
 
-        $urlSucursales = $helper->getWSMethodUrl($helper::SUCURSALES,self::MODE_DEV);
+        $urlSucursales = $helper->getWSMethodUrl($helper::SUCURSALES, $helper->getModo());
 
         try
         {
