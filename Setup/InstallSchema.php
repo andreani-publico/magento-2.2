@@ -78,7 +78,7 @@ class InstallSchema implements InstallSchemaInterface
             ->addForeignKey(
                 $installer->getFkName('ids_andreani_tarifa', 'zona_id', 'ids_andreani_zona', 'zona_id'),
                 'zona_id',
-                'ids_andreani_zona',
+                $installer->getTable('ids_andreani_zona'),
                 'zona_id',
                 \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             );
@@ -110,14 +110,14 @@ class InstallSchema implements InstallSchemaInterface
             ->addForeignKey(
                 $installer->getFkName('ids_andreani_codigo_postal', 'provincia_id', 'ids_andreani_provincia', 'provincia_id'),
                 'provincia_id',
-                'ids_andreani_provincia',
+                $installer->getTable('ids_andreani_provincia'),
                 'provincia_id',
                 \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             )
             ->addForeignKey(
                 $installer->getFkName('ids_andreani_codigo_postal', 'zona_id', 'ids_andreani_zona', 'zona_id'),
                 'zona_id',
-                'ids_andreani_zona',
+                $installer->getTable('ids_andreani_zona'),
                 'zona_id',
                 \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             );
@@ -145,7 +145,7 @@ class InstallSchema implements InstallSchemaInterface
             ->addForeignKey(
                 $installer->getFkName('ids_andreani_sucursal', 'provincia_id', 'ids_andreani_provincia', 'provincia_id'),
                 'provincia_id',
-                'ids_andreani_provincia',
+                $installer->getTable('ids_andreani_provincia'),
                 'provincia_id',
                 \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             );

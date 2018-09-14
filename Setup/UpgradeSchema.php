@@ -61,6 +61,34 @@ class UpgradeSchema implements UpgradeSchemaInterface
 
         }
 
+        if(version_compare($context->getVersion(), '1.0.4', '<'))
+        {
+            $setup->getConnection()->addColumn($setup->getTable('ids_andreani_sucursal'), 'localidad', [
+                'type' => Table::TYPE_TEXT,
+                'length' => 60,
+                'nullable' => true,
+                'comment' => 'Localidad'
+            ]);
+
+            $setup->getConnection()->dropForeignKey(
+                $setup->getTable('ids_andreani_sucursal'),
+                $setup->getFkName(
+                    'ids_andreani_sucursal',
+                    'provincia_id',
+                    'ids_andreani_provincia',
+                    'provincia_id'
+                )
+            );
+
+            $setup->getConnection()->addForeignKey(
+                $setup->getFkName('ids_andreani_sucursal', 'provincia_id', 'ids_andreani_provincia', 'provincia_id'),
+                $setup->getTable('ids_andreani_sucursal'),
+                'provincia_id',
+                $setup->getTable('ids_andreani_provincia'),
+                'provincia_id',
+                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+            );
+        }
 
         $setup->endSetup();
     }

@@ -4,5 +4,8 @@
         <job name="andreani_borrarpdf" instance="Ids\Andreani\Cron\BorrarPdf" method="execute">
             <schedule>0 0 1 * *</schedule>
         </job>
+        <job name="andreani_actualizarsucursales" instance="Ids\Andreani\Cron\ActualizarSucursales" method="execute">
+            <schedule>0 0 1 * *</schedule>
+        </job>
     </group>
 </config>
