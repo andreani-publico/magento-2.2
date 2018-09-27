@@ -47,6 +47,8 @@ var config = {
                 'Ids_Andreani/template/shipping-information/address-renderer/default',
             'Magento_Checkout/js/view/shipping-information/address-renderer/default':
                 'Ids_Andreani/js/view/shipping-information/address-renderer/default',
+            'Temando_Shipping/js/view/checkout/shipping-information/address-renderer/shipping':
+                'Ids_Andreani/js/view/shipping-information/address-renderer/shipping',
             'Magento_Checkout/js/action/create-shipping-address':
                 'Ids_Andreani/js/action/create-shipping-address',
             'Magento_Checkout/js/model/checkout-data-resolver':
