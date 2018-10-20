@@ -245,6 +245,7 @@ define(
                 else
                 {
                     $('.retiro-sucursal-row').hide();
+                    $('#shipping-method-buttons-container .action.continue').show();
                 }
                 /** /AGREGADO **/
 
@@ -399,6 +400,7 @@ define(
                         {
                             if(response.length)
                             {
+                                $('#shipping-method-buttons-container .action.continue').show();
                                 $('#andreanisucursal-sucursal').show();
 
                                 for(var i = 0; i < response.length; i++)
@@ -409,6 +411,7 @@ define(
                             else
                             {
                                 $('.localidad-sin-sucursales').show();
+                                $('#shipping-method-buttons-container .action.continue').hide();
                                 $('#andreanisucursal-sucursal').hide();
                             }
                             $('.retiro-sucursal-row').removeClass('andreani-loader');
