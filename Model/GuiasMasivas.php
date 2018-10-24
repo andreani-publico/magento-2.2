@@ -20,6 +20,7 @@ use Magento\Shipping\Model\Shipping\LabelsFactory;
 use Magento\Shipping\Model\CarrierFactory;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Sales\Model\Order\Shipment\TrackFactory;
+use Magento\Backend\Model\Session as BackendSession;
 
 /**
  * Class GuiasMasivas
@@ -87,6 +88,9 @@ class GuiasMasivas
      */
     protected $_trackFactory;
 
+    /** @var BackendSession  */
+    protected $_backendSession;
+
     /**
      * GuiasMasivas constructor.
      * @param \Magento\Framework\Model\Context $context
@@ -121,6 +125,7 @@ class GuiasMasivas
         CarrierFactory $carrierFactory,
         ScopeConfigInterface $scopeConfig,
         TrackFactory $trackFactory,
+        BackendSession $backendSession,
         array $data = []
     )
     {
@@ -136,6 +141,7 @@ class GuiasMasivas
         $this->_carrierFactory      = $carrierFactory;
         $this->_scopeConfig         = $scopeConfig;
         $this->_trackFactory        = $trackFactory;
+        $this->_backendSession      = $backendSession;
     }
 
     /**
@@ -151,11 +157,15 @@ class GuiasMasivas
     {
         $helper = $this->_andreaniHelper;
 
+        $this->_backendSession->setAndreaniProcessing(true);
+
         if ($helper->getGeneracionGuiasConfig() == '1') {
             $this->_requestByOrder($order);
         } else {
             $this->_requestByOrderItems($order);
         }
+
+        $this->_backendSession->setAndreaniProcessing(false);
     }
 
     /**
