@@ -109,6 +109,10 @@
                     <label>Tipo de cotizacion</label>
                     <source_model>Ids\Andreani\Model\Source\TipoCotizacion</source_model>
                 </field>
+                <field id="metodo_impresion" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Método de Impresión</label>
+                    <source_model>Ids\Andreani\Model\Source\MetodoImpresion</source_model>
+                </field>
                 <field id="upload_image" translate="label comment" type="image" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Logo empresa</label>
                     <comment><![CDATA[Carga la imagen del logo de su empresa, para luego ser utilizado en la impresion de guias.]]></comment>

@@ -25,6 +25,16 @@ class Generarhtml extends Template
     protected $_andreaniHelper;
 
     /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    protected $_storeManager;
+
+    /**
+     * @var \Magento\Store\Model\Information
+     */
+    protected $_storeInfo;
+
+    /**
      * Generarhtml constructor.
      * @param Context $context
      * @param AndreaniHelper $andreaniHelper
@@ -33,12 +43,26 @@ class Generarhtml extends Template
     (
         Context $context,
 //        Order $order,
-        AndreaniHelper $andreaniHelper
+        AndreaniHelper $andreaniHelper,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Store\Model\Information $storeInfo
     )
     {
 //        $this->_order           = $order;
         $this->_andreaniHelper  = $andreaniHelper;
+        $this->_storeManager = $storeManager;
+        $this->_storeInfo = $storeInfo;
+
         parent::__construct($context);
+    }
+
+    /**
+     * @return \Magento\Framework\DataObject
+     */
+    public function getStoreInformation()
+    {
+        $store = $this->_storeManager->getStore();
+        return $this->_storeInfo->getStoreInformationObject($store);
     }
 
     /**

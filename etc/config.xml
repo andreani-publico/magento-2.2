@@ -36,6 +36,7 @@
                 <andreani_trans_emails>representante_ventas</andreani_trans_emails>
                 <andreani_emails_transaccionales>shipping_andreani_configuracion_andreani_emails_transaccionales</andreani_emails_transaccionales>
                 <tipo_cotizacion>webservice</tipo_cotizacion>
+                <metodo_impresion>constancia</metodo_impresion>
                 <andreani_ws_prod_urls>
                     <cotizacion>https://cotizador.andreani.com/ws?wsdl</cotizacion>
                     <cotizacion_soap_version>SOAP_1_2</cotizacion_soap_version>

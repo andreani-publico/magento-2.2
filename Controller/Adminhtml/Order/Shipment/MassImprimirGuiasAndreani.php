@@ -391,6 +391,14 @@ class MassImprimirGuiasAndreani extends \Magento\Sales\Controller\Adminhtml\Orde
 
             $pdfName        = 'guia_masiva_'.date_timestamp_get(date_create());
 
+            $metodoImpresion = $this->_andreaniHelper->getMetodoImpresion();
+
+            if ($metodoImpresion == 'constancia') {
+                $templateImpresion = 'guiamasiva.phtml';
+            } else {
+                $templateImpresion = 'etiquetamasiva.phtml';
+            }
+
             /**
              * Crea el bloque dinámicamente y le pasa los parámetros por array para
              * que renderice la guía en html.
@@ -404,7 +412,7 @@ class MassImprimirGuiasAndreani extends \Magento\Sales\Controller\Adminhtml\Orde
                     ]
                     ])
                 ->setData('area', 'frontend')
-                ->setTemplate('Ids_Andreani::guiamasiva.phtml');
+                ->setTemplate('Ids_Andreani::'.$templateImpresion);
 
             $html = $block->toHtml();
 
@@ -501,6 +509,15 @@ class MassImprimirGuiasAndreani extends \Magento\Sales\Controller\Adminhtml\Orde
              */
             $pdfName        = 'guia_masiva_'.date_timestamp_get(date_create());
 
+
+            $metodoImpresion = $this->_andreaniHelper->getMetodoImpresion();
+
+            if ($metodoImpresion == 'constancia') {
+                $templateImpresion = 'guiamasiva.phtml';
+            } else {
+                $templateImpresion = 'etiquetamasiva.phtml';
+            }
+
             /**
              * Crea el bloque dinámicamente y le pasa los parámetros por array para
              * que renderice la guía en html.
@@ -514,7 +531,7 @@ class MassImprimirGuiasAndreani extends \Magento\Sales\Controller\Adminhtml\Orde
                     ]
                     ])
                 ->setData('area', 'frontend')
-                ->setTemplate('Ids_Andreani::guiamasiva.phtml');
+                ->setTemplate('Ids_Andreani::'.$templateImpresion);
 
             $html = $block->toHtml();
 

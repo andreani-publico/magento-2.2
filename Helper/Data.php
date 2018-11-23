@@ -276,6 +276,15 @@ class Data extends AbstractHelper
     }
 
     /**
+     * @description devuelve el metodo de impresion configurado en el backend (por defecto imprime la constancia).
+     * @return mixed
+     */
+    public function getMetodoImpresion()
+    {
+        return $this->_scopeConfig->getValue('shipping/andreani_configuracion/metodo_impresion');
+    }
+
+    /**
      * @description devuelve el número de contrato del método "Andreani Sucursal"
      * que se configuró por admin.
      * @return mixed

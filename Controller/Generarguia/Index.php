@@ -112,6 +112,14 @@ class Index extends Action
 
         $pdfName    = date_timestamp_get(date_create()).'_'.$order->getIncrementId();
 
+
+        $metodoImpresion = $this->_andreaniHelper->getMetodoImpresion();
+
+        if ($metodoImpresion == 'constancia') {
+            $templateImpresion = 'guia.phtml';
+        } else {
+            $templateImpresion = 'etiqueta.phtml';
+        }
         /**
          * Crea el bloque dinámicamente y le pasa los parámetros por array para
          * que renderice la guía en html.
@@ -125,7 +133,7 @@ class Index extends Action
                 ]
                 ])
             ->setData('area', 'frontend')
-            ->setTemplate('Ids_Andreani::guia.phtml');
+            ->setTemplate('Ids_Andreani::'.$templateImpresion);
 
         $html = $block->toHtml();
 

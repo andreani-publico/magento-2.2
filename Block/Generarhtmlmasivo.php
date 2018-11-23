@@ -25,6 +25,11 @@ class Generarhtmlmasivo extends Template
     protected $shipmentCollectionFactory;
 
     /**
+     * @var \Magento\Store\Model\Information
+     */
+    protected $_storeInfo;
+
+    /**
      * Generarhtml constructor.
      * @param Context $context
      * @param AndreaniHelper $andreaniHelper
@@ -33,12 +38,14 @@ class Generarhtmlmasivo extends Template
     (
         Context $context,
         ShipmentCollectionFactory $shipmentCollectionFactory,
-        AndreaniHelper $andreaniHelper
+        AndreaniHelper $andreaniHelper,
+        \Magento\Store\Model\Information $storeInfo
     )
     {
 
         $this->_andreaniHelper  = $andreaniHelper;
         $this->shipmentCollectionFactory    = $shipmentCollectionFactory;
+        $this->_storeInfo = $storeInfo;
         parent::__construct($context);
     }
 
@@ -102,5 +109,14 @@ class Generarhtmlmasivo extends Template
         $clientCredentials['cliente'] = $this->_andreaniHelper->getNroCliente();
 
         return $clientCredentials;
+    }
+
+    /**
+     * @return \Magento\Framework\DataObject
+     */
+    public function getStoreInformation()
+    {
+        $store = $this->_storeManager->getStore();
+        return $this->_storeInfo->getStoreInformationObject($store);
     }
 }
