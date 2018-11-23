@@ -20,7 +20,6 @@ use Magento\Shipping\Model\Shipping\LabelsFactory;
 use Magento\Shipping\Model\CarrierFactory;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Sales\Model\Order\Shipment\TrackFactory;
-use Magento\Backend\Model\Session as BackendSession;
 
 /**
  * Class GuiasMasivas
@@ -88,9 +87,6 @@ class GuiasMasivas
      */
     protected $_trackFactory;
 
-    /** @var BackendSession  */
-    protected $_backendSession;
-
     /**
      * GuiasMasivas constructor.
      * @param \Magento\Framework\Model\Context $context
@@ -125,7 +121,6 @@ class GuiasMasivas
         CarrierFactory $carrierFactory,
         ScopeConfigInterface $scopeConfig,
         TrackFactory $trackFactory,
-        BackendSession $backendSession,
         array $data = []
     )
     {
@@ -141,7 +136,6 @@ class GuiasMasivas
         $this->_carrierFactory      = $carrierFactory;
         $this->_scopeConfig         = $scopeConfig;
         $this->_trackFactory        = $trackFactory;
-        $this->_backendSession      = $backendSession;
     }
 
     /**
@@ -157,15 +151,12 @@ class GuiasMasivas
     {
         $helper = $this->_andreaniHelper;
 
-        $this->_backendSession->setAndreaniProcessing(true);
-
         if ($helper->getGeneracionGuiasConfig() == '1') {
             $this->_requestByOrder($order);
         } else {
             $this->_requestByOrderItems($order);
         }
 
-        $this->_backendSession->setAndreaniProcessing(false);
     }
 
     /**
@@ -538,6 +529,10 @@ class GuiasMasivas
 
         foreach ($order->getAllItems() AS $orderItem)
         {
+            /**
+             * @var $orderItem Item
+             * @var $shipmentItem Shipment\Item
+             */
             if (!$orderItem->getQtyToShip() || $orderItem->getIsVirtual()) {
                 continue;
             }
@@ -589,28 +584,8 @@ class GuiasMasivas
                             'weight' => $pesoTotal,
                             'container'=> 1,
                             'customs_value'=> $valorTotal
-                    ]
-            ]]);
-            $response = $this->_labelFactory->create()->requestToShipment($shipment);
-
-            if ($response->hasErrors()) {
-                throw new \Magento\Framework\Exception\LocalizedException(__($response->getErrors()));
-            }
-            if (!$response->hasInfo()) {
-                throw new \Magento\Framework\Exception\LocalizedException(__('Response info is not exist.'));
-            }
-
-            $labelsContent = [];
-            $trackingNumbers = [];
-            $info = $response->getInfo();
-
-            foreach ($info as $inf)
-            {
-                if (!empty($inf['tracking_number']) && !empty($inf['label_content'])) {
-                    $labelsContent[] = $inf['label_content'];
-                    $trackingNumbers[] = $inf['tracking_number'];
-                }
-            }
+                        ]
+                    ]]);
 
             $carrierCode = $carrier->getCarrierCode();
             $carrierTitle = $this->_scopeConfig->getValue(
@@ -618,8 +593,8 @@ class GuiasMasivas
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
                 $shipment->getStoreId()
             );
-            if (!empty($trackingNumbers)) {
-                $this->addTrackingNumbersToShipment($shipment, $trackingNumbers, $carrierCode, $carrierTitle);
+            if (!empty($trackingNumber)) {
+                $this->addTrackingNumbersToShipment($shipment, [$trackingNumber], $carrierCode, $carrierTitle);
             }
 
             $shipment->setData('andreani_datos_guia', $serialJson);

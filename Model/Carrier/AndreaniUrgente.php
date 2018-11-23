@@ -15,7 +15,6 @@ use Ids\Andreani\Model\Webservice;
 use Ids\Andreani\Helper\Data as AndreaniHelper;
 use Ids\Andreani\Model\TarifaFactory;
 use Magento\Framework\Xml\Security;
-use Magento\Backend\Model\Session as BackendSession;
 
 class AndreaniUrgente extends AbstractCarrierOnline implements CarrierInterface
 {
@@ -66,9 +65,6 @@ class AndreaniUrgente extends AbstractCarrierOnline implements CarrierInterface
      */
     protected $_result;
 
-    /** @var BackendSession  */
-    protected $_backendSession;
-
     /**
      * AndreaniEstandar constructor.
      * @param ScopeConfigInterface $scopeConfig
@@ -112,7 +108,6 @@ class AndreaniUrgente extends AbstractCarrierOnline implements CarrierInterface
         Webservice $webservice,
         AndreaniHelper $andreaniHelper,
         TarifaFactory  $tarifaFactory,
-        BackendSession $backendSession,
         array $data = []
     ) {
         $this->_rateResultFactory = $rateFactory;
@@ -121,7 +116,6 @@ class AndreaniUrgente extends AbstractCarrierOnline implements CarrierInterface
         $this->_rateRequest       = $rateRequest;
         $this->_webService        = $webservice;
         $this->_tarifaFactory     = $tarifaFactory;
-        $this->_backendSession    = $backendSession;
         $this->_carrierParams     = [];
 
         parent::__construct(
@@ -285,10 +279,6 @@ class AndreaniUrgente extends AbstractCarrierOnline implements CarrierInterface
     {
         $this->_prepareShipmentRequest($request);
         $result = new \Magento\Framework\DataObject();
-
-        if ($this->_backendSession->getAndreaniProcessing()) {
-            return $result;
-        }
 
         //llamar al webservice y ver como se genera la guia con los carrier que vienen en magento. Esto salio del Carrier.php de ups
 

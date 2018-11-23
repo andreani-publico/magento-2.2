@@ -15,7 +15,6 @@ use Magento\Shipping\Model\Rate\ResultFactory;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Framework\Xml\Security;
 use Magento\Checkout\Model\Session;
-use Magento\Backend\Model\Session as BackendSession;
 
 class AndreaniSucursal extends AbstractCarrierOnline implements CarrierInterface
 {
@@ -66,8 +65,6 @@ class AndreaniSucursal extends AbstractCarrierOnline implements CarrierInterface
      */
     protected $_result;
 
-    /** @var BackendSession  */
-    protected $_backendSession;
 
     /**
      * AndreaniSucursal constructor.
@@ -108,7 +105,6 @@ class AndreaniSucursal extends AbstractCarrierOnline implements CarrierInterface
         AndreaniHelper $andreaniHelper,
         Webservice $webservice,
         Session $checkoutSession,
-        BackendSession $backendSession,
         array $data = []
     ) {
         $this->_rateResultFactory = $rateFactory;
@@ -116,7 +112,6 @@ class AndreaniSucursal extends AbstractCarrierOnline implements CarrierInterface
         $this->_andreaniHelper    = $andreaniHelper;
         $this->_webService        = $webservice;
         $this->_checkoutSession   = $checkoutSession;
-        $this->_backendSession    = $backendSession;
         $this->_carrierParams     = [];
 
         parent::__construct(
@@ -236,10 +231,6 @@ class AndreaniSucursal extends AbstractCarrierOnline implements CarrierInterface
     {
         $this->_prepareShipmentRequest($request);
         $result = new \Magento\Framework\DataObject();
-
-        if ($this->_backendSession->getAndreaniProcessing()) {
-            return $result;
-        }
 
         //llamar al webservice y ver como se genera la guia con los carrier que vienen en magento. Esto salio del Carrier.php de ups
 
