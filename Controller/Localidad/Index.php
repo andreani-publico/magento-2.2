@@ -8,6 +8,7 @@ use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\TestFramework\Inspection\Exception;
 use Ids\Andreani\Model\CodigoPostalFactory;
+use Ids\Andreani\Model\SucursalFactory;
 
 /**
  * Class Localidad
@@ -35,6 +36,7 @@ class Index extends Action
      */
     protected $_codigoPostalFactory;
 
+    protected $_sucursalFactory;
     /**
      * Index constructor.
      * @param Context $context
@@ -47,12 +49,14 @@ class Index extends Action
         Context $context,
         PageFactory $resultPageFactory,
         JsonFactory $resultJsonFactory,
-        CodigoPostalFactory $codigoPostalFactory
+        CodigoPostalFactory $codigoPostalFactory,
+        SucursalFactory $sucursalFactory
     )
     {
         $this->_resultPageFactory   = $resultPageFactory;
         $this->_resultJsonFactory   = $resultJsonFactory;
         $this->_codigoPostalFactory = $codigoPostalFactory;
+        $this->_sucursalFactory = $sucursalFactory;
 
         parent::__construct($context);
     }
@@ -68,7 +72,7 @@ class Index extends Action
 
         if(($provinciaId = $request->getParam('provincia_id')) && $request->isXmlHttpRequest())
         {
-            $localidades = $this->_codigoPostalFactory->create()
+            $localidades = $this->_sucursalFactory->create()
                 ->getCollection()
                 ->addFieldToFilter('provincia_id',['eq'=>$provinciaId]);
 
