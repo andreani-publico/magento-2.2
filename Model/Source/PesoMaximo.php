@@ -17,7 +17,7 @@ class PesoMaximo implements \Magento\Framework\Option\ArrayInterface
             '30000'  => '30 kg',
             '50000'  => '50 kg',
             '100000' => '100 kg',
-            '1000000' => '1000 kg'
+            '1000000' => '1000 kg',
             '3000000' => '3000 kg'
         ];
     }
