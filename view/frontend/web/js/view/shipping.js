@@ -236,7 +236,6 @@ define(
 
                 if(shippingMethod.carrier_code == 'andreanisucursal' && shippingMethod.method_code == 'sucursal')
                 {
-                    $('#shipping-method-buttons-container .action.continue').hide();
                     $('.retiro-sucursal-row').show();
 
                     $('#andreanisucursal-provincia').val('');
@@ -246,7 +245,6 @@ define(
                 else
                 {
                     $('.retiro-sucursal-row').hide();
-                    $('#shipping-method-buttons-container .action.continue').show();
                 }
                 /** /AGREGADO **/
 
@@ -412,7 +410,6 @@ define(
                             else
                             {
                                 $('.localidad-sin-sucursales').show();
-                                $('#shipping-method-buttons-container .action.continue').hide();
                                 $('#andreanisucursal-sucursal').hide();
                             }
                             $('.retiro-sucursal-row').removeClass('andreani-loader');
@@ -457,7 +454,6 @@ define(
                             }
                             else
                             {
-                                $('#shipping-method-buttons-container .action.continue').show();
                                 //Ver la mejor manera de ponerle el precio
                                 $('td.andreanisucursal-price span.price').html(response.cotizacion);
                                 $('.retiro-sucursal-row').removeClass('andreani-loader');
