@@ -8,6 +8,12 @@ Para el correcto funcionamiento del módulo es necesario contar con:
 Magento version >= 2.2.x 
 ```
 
+## Otras versiones de Magento
+
+  - Magento 1:  https://github.com/eandreani/magento
+  - Magento 2.1:  https://github.com/eandreani/modulo-magento2
+  
+  
 ## Instalación
 
 Para concretar la instalacion del módulo es necesario realizar los siguientes pasos. Primeramente, parados en la carpeta root del proyecto añadimos el modulo a nuestro composer.json ejecutando:
