@@ -335,10 +335,12 @@ class Webservice extends WsseAuthHeader
             }
 
         } catch (SoapFault $e){
-            if($helper->getDebugHabilitado())
+            if($helper->getDebugHabilitado()){
                 $helper->log($e,'erorres_andreani_webservice_'.date('Y_m').'.log');
-            else
+                $helper->log(print_r($params,true),'erorres_andreani_webservice_'.date('Y_m').'.log');
+            } else{
                 $helper->log($e->getMessage(),'erorres_andreani_webservice_'.date('Y_m').'.log');
+            }
         }
     }
 
