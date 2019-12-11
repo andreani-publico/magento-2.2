@@ -5,7 +5,7 @@
 Para el correcto funcionamiento del módulo es necesario contar con:
 
 ```
-Magento version >= 2.2.x 
+Magento version >= 2.2 y < 2.3
 ```
 
 ## Otras versiones de Magento
