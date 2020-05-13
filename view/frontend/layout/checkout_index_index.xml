@@ -23,17 +23,6 @@
                                     <item name="children" xsi:type="array">
                                         <item name="shipping-step" xsi:type="array">
                                             <item name="children" xsi:type="array">
-                                                <item name="step-config" xsi:type="array">
-                                                    <item name="children" xsi:type="array">
-                                                        <item name="shipping-rates-validation" xsi:type="array">
-                                                            <item name="children" xsi:type="array">
-                                                                <item name="flatrate-rates-validation" xsi:type="array">
-                                                                    <item name="component" xsi:type="string">Ids_Andreani/js/view/shipping-rates-validation/andreani</item>
-                                                                </item>
-                                                            </item>
-                                                        </item>
-                                                    </item>
-                                                </item>
                                                 <!-- Campos custom en el formulario de shipping address del checkout -->
                                                 <item name="shippingAddress" xsi:type="array">
                                                     <item name="children" xsi:type="array">
